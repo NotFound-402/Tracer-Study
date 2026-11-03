@@ -29,7 +29,7 @@ html {
 body {
     font-family: 'Inter', Arial, sans-serif;
     color: var(--text);
-    background: var(--white);
+    background: #eef2f6;
     line-height: 1.7;
 }
 
@@ -39,72 +39,88 @@ a {
 }
 
 .navbar {
-    min-height: 82px;
-    padding: 16px 7%;
+    width: min(100%, 1280px);
+    min-height: 92px;
+    margin: 20px auto 0;
+    padding: 14px 22px 14px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    background: rgba(255, 255, 255, .96);
-    border-bottom: 1px solid var(--border);
+    gap: 20px;
+    background: rgba(255, 255, 255, .98);
+    border: 1px solid #dfe5ee;
+    border-radius: 18px;
     position: sticky;
-    top: 0;
+    top: 12px;
     z-index: 100;
-    backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(16, 44, 70, 0.04);
 }
 
 .brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    min-width: 0;
 }
 
 .brand-icon {
     display: grid;
     place-items: center;
-    width: 50px;
-    height: 50px;
-    border-radius: 13px;
-    background: linear-gradient(135deg, var(--navy), #214d7d);
+    width: 62px;
+    height: 62px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #123b61 0%, #0d2d4d 100%);
     color: white;
-    font-size: 24px;
+    font-size: 34px;
     font-weight: 800;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 10px 20px rgba(16, 44, 70, .12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.brand-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+    border-radius: 12px;
 }
 
 .brand-icon::before {
-    content: 'S';
-    display: block;
-    line-height: 1;
+    display: none;
 }
 
 .brand strong,
 .brand small {
     display: block;
-    line-height: 1.5;
+    line-height: 1.2;
 }
 
 .brand strong {
-    font-size: 14px;
-    letter-spacing: .4px;
+    font-size: 18px;
+    letter-spacing: .2px;
+    color: #23354f;
 }
 
 .brand small {
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 1.3px;
+    font-size: 11px;
+    color: #7d8aa1;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
 }
 
 .nav-menu {
     display: flex;
     align-items: center;
-    gap: 28px;
-    font-size: 13px;
+    gap: 30px;
+    font-size: 16px;
     font-weight: 600;
+    color: #2d3a4a;
 }
 
 .nav-menu > a:not(.nav-login) {
-    color: #526174;
+    color: #2e3d50;
 }
 
 .nav-menu > a:hover {
@@ -112,10 +128,12 @@ a {
 }
 
 .nav-login {
-    padding: 11px 20px;
-    border-radius: 10px;
-    background: var(--navy);
+    padding: 12px 22px;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #0f2e4f 0%, #0a2340 100%);
     color: white;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+    font-weight: 700;
 }
 
 .menu-toggle {

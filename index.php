@@ -2,8 +2,6 @@
 
 require_once __DIR__ . '/config/database.php';
 
-
-
 $statistik = [
     'alumni' => 0,
     'responden' => 0,
@@ -77,7 +75,7 @@ function e($value): string
     <header class="navbar">
         <a class="brand" href="#beranda">
             <span class="brand-icon">
-                <img src="asset/images/logo.png" alt="Logo SMKN 1 Sukawati" width="50" height="30">
+                <img src="asset/images/logo.png" alt="Logo SMKN 1 Sukawati" width="50" height="50">
             </span>
             <span>
                 <strong>SMKN 1 SUKAWATI</strong>
@@ -278,7 +276,7 @@ function e($value): string
 
     <footer class="footer">
         <a class="brand footer-brand" href="#beranda">
-            <span class="brand-icon">S</span>
+            <span class="brand-icon"></span>
             <span>
                 <strong>SMKN 1 SUKAWATI</strong>
                 <small>TRACER STUDY ALUMNI</small>

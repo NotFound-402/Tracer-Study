@@ -197,11 +197,6 @@ function warnaStatus(string $status): string
                     class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
                     <span></span> Laporan
                 </a>
-
-                <a href="pengaturan.php"
-                    class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                    <span></span> Pengaturan
-                </a>
             </nav>
 
             <div class="border-t border-white/10 p-3">
@@ -405,6 +400,73 @@ function warnaStatus(string $status): string
         </div>
     </div>
 
+    <script>
+        const statusData = <?= json_encode(
+                                array_values($statusMap),
+                                JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+                            ) ?>;
+
+        const tahunRows = <?= json_encode(
+                                $tahunData,
+                                JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+                            ) ?>;
+
+        new Chart(document.getElementById('statusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'Bekerja',
+                    'Lanjut Kuliah',
+                    'Wirausaha',
+                    'Belum Bekerja'
+                ],
+                datasets: [{
+                    data: statusData,
+                    backgroundColor: [
+                        '#10b981',
+                        '#3b82f6',
+                        '#f59e0b',
+                        '#f43f5e'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('tahunChart'), {
+            type: 'bar',
+            data: {
+                labels: tahunRows.map(row => row.tahun_kelulusan),
+                datasets: [{
+                    label: 'Jumlah Alumni',
+                    data: tahunRows.map(row => Number(row.total)),
+                    backgroundColor: '#2563eb',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        });
+    </script>
     <script src="/asset/js/admin.js"></script>
 </body>
 

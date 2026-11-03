@@ -89,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($currentStatus === 'Pengangguran' && $status !== 'Pengangguran') {
         $error = 'Anda sudah mengisi tracer pengangguran. Karena itu, tracer lain tidak dapat dipilih lagi.';
+    } elseif ($currentStatus !== 'Pengangguran' && $status === 'Pengangguran') {
+        $error = 'Status Pengangguran tidak dapat dipilih karena Anda sudah memilih status lain (Bekerja, Lanjut Kuliah, atau Wirausaha).';
     } else {
         $pdo->beginTransaction();
         try {
@@ -351,6 +353,9 @@ function e($value): string
                                 if ($currentStatus === 'Pengangguran' && $option !== 'Pengangguran') {
                                     $disabled = true;
                                 }
+                                if ($currentStatus !== 'Pengangguran' && $option === 'Pengangguran') {
+                                    $disabled = true;
+                                }
                                 if ($currentStatus !== 'Pengangguran' && $option === $currentStatus) {
                                     $disabled = true;
                                 }
@@ -364,7 +369,7 @@ function e($value): string
                         <p class="mt-3 text-xs text-slate-500">
                             <?= $currentStatus === 'Pengangguran'
                                 ? 'Karena Anda sudah mengisi tracer pengangguran, form status lain dinonaktifkan sesuai alur yang diminta.'
-                                : 'Status yang sudah Anda isi ditandai sebagai status aktif. Anda masih dapat memperbarui hasil tracer pada status lain.' ?>
+                                : 'Status yang sudah Anda isi ditandai sebagai status aktif. Pilihan Pengangguran dinonaktifkan agar tidak bertabrakan dengan status yang sudah Anda pilih.' ?>
                         </p>
                     </section>
 

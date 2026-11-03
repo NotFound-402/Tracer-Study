@@ -143,11 +143,6 @@ function badge($status): string
                     class="flex items-center gap-3 rounded-xl bg-blue-600 px-4 py-3 font-medium shadow-lg shadow-blue-950/20">
                     <span></span> Laporan
                 </a>
-
-                <a href="pengaturan.php"
-                    class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                    <span></span> Pengaturan
-                </a>
             </nav>
 
             <div class="border-t border-white/10 p-3">
