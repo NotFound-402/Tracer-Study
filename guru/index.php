@@ -133,7 +133,7 @@ function warnaStatus(string $status): string
 
             <div class="flex items-center gap-3 border-b border-white/10 px-5 py-6">
                 <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xl">
-
+                    🎓
                 </div>
                 <div>
                     <p class="font-bold tracking-wide">TRACER STUDY</p>
@@ -149,27 +149,27 @@ function warnaStatus(string $status): string
 
                 <a href="index.php"
                     class="flex items-center gap-3 rounded-xl bg-blue-600 px-4 py-3 font-medium text-white">
-                    <span>▦</span> Dashboard
+                    <span></span> Dashboard
                 </a>
 
-                <a href="alumni.php"
+                <a href="data-alumni.php"
                     class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                    <span>♙</span> Data Alumni
+                    <span></span> Data Alumni
                 </a>
 
-                <a href="tracer-study.php"
+                <a href="data-tracer-study.php"
                     class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                    <span>▤</span> Data Tracer Study
+                    <span></span> Data Tracer Study
                 </a>
 
                 <a href="laporan.php"
                     class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                    <span>▥</span> Laporan
+                    <span></span> Laporan
                 </a>
 
                 <a href="profil.php"
                     class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                    <span>♙</span> Profil Saya
+                    <span></span> Profil Saya
                 </a>
             </nav>
 
@@ -312,7 +312,7 @@ function warnaStatus(string $status): string
                             <h2 class="font-bold text-navy">Respons Tracer Study Terbaru</h2>
                             <p class="mt-1 text-sm text-slate-500">Lima respons terakhir yang masuk</p>
                         </div>
-                        <a href="tracer-study.php"
+                        <a href="data-tracer-study.php"
                             class="text-sm font-semibold text-blue-600 hover:text-blue-800">
                             Lihat semua →
                         </a>

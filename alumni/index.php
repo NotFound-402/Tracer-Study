@@ -40,7 +40,6 @@ $stmt = $pdo->prepare("
 ");
 $stmt->execute(['id' => $idAlumni]);
 $tracer = $stmt->fetch(PDO::FETCH_ASSOC);
-
 $sudahMengisi = (bool) $tracer;
 
 function e($value): string
@@ -108,23 +107,31 @@ function labelStatus(string $status): string
             <a href="index.php"
                aria-current="page"
                class="flex items-center gap-3 rounded-xl bg-blue-600 px-4 py-3 font-medium text-white">
-                <span>▦</span> Dashboard
+                <span></span> Dashboard
             </a>
 
             <a href="tracer-study.php"
                class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▤</span> Isi Tracer Study
+                <span></span> Isi Tracer Study
             </a>
 
             <a href="riwayat.php"
                class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▧</span> Riwayat Saya
+                <span></span> Riwayat Saya
             </a>
 
+            <?php if ($sudahMengisi): ?>
+            <a href="edit-tracer.php"
+               class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
+                <span></span> Edit Tracer Study
+            </a>
+            <?php endif; ?>
+            
             <a href="profil.php"
                class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>♙</span> Profil Saya
+                <span></span> Profil Saya
             </a>
+
         </nav>
 
         <div class="border-t border-white/10 p-3">

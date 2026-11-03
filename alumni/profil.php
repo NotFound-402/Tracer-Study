@@ -24,6 +24,10 @@ if (!$alumni) {
     exit('Data alumni tidak ditemukan.');
 }
 
+$stmt = $pdo->prepare('SELECT id_tracer FROM tracer_study WHERE id_alumni = :id LIMIT 1');
+$stmt->execute([':id' => $idAlumni]);
+$sudahMengisi = (bool) $stmt->fetch(PDO::FETCH_ASSOC);
+
 $message = '';
 $messageType = 'success';
 
@@ -155,28 +159,37 @@ function e($value): string
             </div>
         </div>
 
-        <nav class="flex flex-1 flex-col gap-1 p-3">
-            <p class="px-3 pb-2 pt-3 text-xs font-semibold uppercase tracking-widest text-blue-200">Menu Alumni</p>
+        <nav class="flex flex-wrap gap-1 p-3 lg:flex-1 lg:flex-col">
+            <p class="hidden px-3 pb-2 pt-3 text-xs font-semibold uppercase tracking-widest text-blue-200 lg:block">Menu Alumni</p>
 
             <a href="index.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▦</span> Dashboard
-            </a>
-            <a href="tracer-study.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▤</span> Isi Tracer Study
-            </a>
-            <a href="riwayat.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▧</span> Riwayat Saya
-            </a>
-            <a href="profil.php" class="flex items-center gap-3 rounded-xl bg-blue-600 px-4 py-3 font-medium text-white">
-                <span>♙</span> Profil Saya
+                <span></span> Dashboard
             </a>
 
-            <div class="mt-auto border-t border-white/10 pt-3">
-                <a href="/logout.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-rose-500/20 hover:text-white">
-                    <span>↪</span> Logout
-                </a>
-            </div>
+            <a href="tracer-study.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
+                <span></span> Isi Tracer Study
+            </a>
+
+            <a href="riwayat.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
+                <span></span> Riwayat Saya
+            </a>
+
+            <?php if ($sudahMengisi): ?>
+            <a href="edit-tracer.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
+                <span></span> Edit Tracer Study
+            </a>
+            <?php endif; ?>
+
+            <a href="profil.php" aria-current="page" class="flex items-center gap-3 rounded-xl bg-blue-600 px-4 py-3 font-medium text-white">
+                <span></span> Profil Saya
+            </a>
         </nav>
+
+        <div class="border-t border-white/10 p-3">
+            <a href="/logout.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-rose-500/20 hover:text-white">
+                <span>↪</span> Logout
+            </a>
+        </div>
     </aside>
 
     <div class="min-w-0 flex-1 lg:ml-64">

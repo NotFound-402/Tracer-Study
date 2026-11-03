@@ -25,6 +25,8 @@ $stmt = $pdo->prepare('SELECT * FROM tracer_study WHERE id_alumni = :id LIMIT 1'
 $stmt->execute([':id' => $idAlumni]);
 $tracer = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$sudahMengisi = (bool) $tracer;
+
 $detail = null;
 if ($tracer) {
     $status = $tracer['status_alumni'];
@@ -96,16 +98,24 @@ function formatRupiah($value): string
             <p class="px-3 pb-2 pt-3 text-xs font-semibold uppercase tracking-widest text-blue-200">Menu Alumni</p>
 
             <a href="index.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▦</span> Dashboard
+                <span></span> Dashboard
             </a>
             <a href="tracer-study.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▤</span> Isi Tracer Study
+                <span></span> Isi Tracer Study
             </a>
             <a href="riwayat.php" class="flex items-center gap-3 rounded-xl bg-blue-600 px-4 py-3 font-medium text-white">
-                <span>▧</span> Riwayat Saya
+                <span></span> Riwayat Saya
             </a>
+
+            <?php if ($sudahMengisi): ?>
+            <a href="edit-tracer.php"
+               class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
+                <span></span> Edit Tracer Study
+            </a>
+            <?php endif; ?>
+            
             <a href="profil.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>♙</span> Profil Saya
+                <span></span> Profil Saya
             </a>
 
             <div class="mt-auto border-t border-white/10 pt-3">
@@ -185,7 +195,12 @@ function formatRupiah($value): string
                 </section>
 
                 <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
-                    <h2 class="text-lg font-bold text-navy">Penilaian & Masukan</h2>
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <h2 class="text-lg font-bold text-navy">Penilaian & Masukan</h2>
+                        <a href="edit-tracer.php" class="inline-flex items-center rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">
+                            Edit Tracer Saya
+                        </a>
+                    </div>
                     <div class="mt-5 grid gap-5 md:grid-cols-2">
                         <div class="rounded-xl border border-slate-200 bg-slate-50 p-4">
                             <p class="text-sm font-semibold text-slate-700">Penilaian fasilitas sekolah</p>

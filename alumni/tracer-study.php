@@ -24,13 +24,21 @@ if (!$alumni) {
 $statusOptions = ['Bekerja', 'Pengangguran', 'Lanjut Kuliah', 'Wirausaha'];
 $existingTracer = null;
 $existingDetail = [];
+$sudahMengisi = false;
 
 $stmt = $pdo->prepare('SELECT * FROM tracer_study WHERE id_alumni = :id LIMIT 1');
 $stmt->execute([':id' => $idAlumni]);
 $existingTracer = $stmt->fetch(PDO::FETCH_ASSOC);
+$sudahMengisi = (bool) $existingTracer;
 
 if ($existingTracer) {
-    header('Location: riwayat.php?locked=1');
+    $currentStatus = $existingTracer['status_alumni'] ?? '';
+    if ($currentStatus === 'Pengangguran') {
+        header('Location: edit-tracer.php?locked=1');
+        exit;
+    }
+
+    header('Location: edit-tracer.php?status=' . urlencode($currentStatus));
     exit;
 }
 
@@ -243,16 +251,24 @@ function e($value): string
             <p class="px-3 pb-2 pt-3 text-xs font-semibold uppercase tracking-widest text-blue-200">Menu Alumni</p>
 
             <a href="index.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▦</span> Dashboard
+                <span></span> Dashboard
             </a>
             <a href="tracer-study.php" class="flex items-center gap-3 rounded-xl bg-blue-600 px-4 py-3 font-medium text-white">
-                <span>▤</span> Isi Tracer Study
+                <span></span> Isi Tracer Study
             </a>
             <a href="riwayat.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>▧</span> Riwayat Saya
+                <span></span> Riwayat Saya
             </a>
+
+            <?php if ($sudahMengisi): ?>
+            <a href="edit-tracer.php"
+               class="flex items-center gap-3 rounded-xl bg-blue-600 px-4 py-3 font-medium text-white">
+                <span></span> Edit Tracer Study
+            </a>
+            <?php endif; ?>
+            
             <a href="profil.php" class="flex items-center gap-3 rounded-xl px-4 py-3 text-slate-200 transition hover:bg-white/10">
-                <span>♙</span> Profil Saya
+                <span></span> Profil Saya
             </a>
 
             <div class="mt-auto border-t border-white/10 pt-3">
