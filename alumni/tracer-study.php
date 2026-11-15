@@ -1,4 +1,6 @@
 <?php
+// Form ini digunakan alumni untuk mengisi atau mengubah data tracer study.
+// Data yang dikirim akan disimpan ke tabel tracer_study dan tabel detail sesuai status alumni.
 require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/database.php';
 
@@ -7,6 +9,7 @@ requireRole('alumni');
 $alumniSession = $_SESSION['user'];
 $idAlumni = (int) $alumniSession['id'];
 
+// Ambil data profil alumni agar form dapat menampilkan informasi dasar seperti nama dan jurusan.
 $stmt = $pdo->prepare(
     'SELECT a.id_alumni, a.nama, a.email, a.nis, a.nisn, a.tahun_kelulusan, j.nama_jurusan, j.singkatan
      FROM alumni a

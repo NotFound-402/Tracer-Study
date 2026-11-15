@@ -1,5 +1,6 @@
 
 <?php
+// Memastikan session aktif dan hanya alumni yang boleh membuka halaman dashboard ini.
 require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/database.php';
 
@@ -8,7 +9,7 @@ requireRole('alumni');
 $alumniSession = $_SESSION['user'];
 $idAlumni = (int) $alumniSession['id'];
 
-// Ambil data alumni yang sedang login
+// Ambil data alumni yang sedang login agar halaman menyesuaikan profil dan status pengisisan.
 $stmt = $pdo->prepare("
     SELECT
         a.id_alumni,

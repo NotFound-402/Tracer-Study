@@ -2,6 +2,8 @@
 session_start();
 require_once __DIR__ . '/config/database.php';
 
+// Fungsi ini mengecek password lama atau baru agar kompatibel dengan hash yang disimpan.
+// Beberapa data akun mungkin menggunakan password_hash, sementara yang lain memakai hash lama.
 function verifyPasswordCompat($password, $storedHash)
 {
     if ($storedHash === null || $storedHash === '') {
@@ -17,6 +19,7 @@ function verifyPasswordCompat($password, $storedHash)
         || hash_equals((string) $storedHash, sha1($password));
 }
 
+// Jika pengguna sudah login, arahkan ke halaman dashboard sesuai peran.
 if (isset($_SESSION['user']['role'])) {
     $redirects = [
         'admin' => '/admin/index.php',
@@ -33,6 +36,7 @@ if (isset($_SESSION['user']['role'])) {
 $error = '';
 $role = 'admin';
 
+// Proses request login ketika form dikirim melalui metode POST.
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $role = $_POST['role'] ?? 'admin';
     $identifier = $role === 'alumni'
@@ -40,11 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         : trim((string) ($_POST['email'] ?? ''));
     $password = (string) ($_POST['password'] ?? '');
 
+    // Validasi input dasar sebelum query ke database.
     if ($identifier === '' || $password === '') {
         $error = $role === 'alumni'
             ? 'NISN dan password wajib diisi.'
             : 'Email dan password wajib diisi.';
     } else {
+        // Menentukan tabel yang sesuai dengan role pengguna.
         $tables = [
             'admin' => ['table' => 'admin', 'id' => 'id_admin', 'name' => 'nama'],
             'guru' => ['table' => 'guru', 'id' => 'id_guru', 'name' => 'nama'],
@@ -54,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $table = $tables[$role]['table'] ?? null;
 
         if ($table) {
+            // Cari data pengguna berdasarkan email atau NISN sesuai role.
             if ($role === 'alumni') {
                 $stmt = $pdo->prepare("SELECT * FROM {$table} WHERE nisn = :identifier LIMIT 1");
                 $stmt->execute([':identifier' => $identifier]);
@@ -64,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $user = $stmt->fetch();
 
+            // Jika akun ditemukan dan password valid, buat session login.
             if ($user && verifyPasswordCompat($password, $user['password'] ?? '')) {
                 session_regenerate_id(true);
 

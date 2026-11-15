@@ -1,4 +1,6 @@
 <?php
+// Halaman ini menampilkan seluruh respons tracer study yang telah diisi alumni.
+// Admin bisa mencari nama, memfilter berdasarkan status, dan melihat hasil pengisian survey.
 require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/database.php';
 
@@ -7,6 +9,8 @@ requireRole('admin');
 $admin = $_SESSION['user'];
 $statusFilter = $_GET['status'] ?? 'all';
 $search = trim((string) ($_GET['q'] ?? ''));
+
+// Membuat query dinamis berdasarkan filter status dan kata kunci pencarian.
 
 $where = [];
 $params = [];

@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/config/database.php';
 
+// Menyimpan ringkasan data statistik alumni yang akan ditampilkan di halaman depan.
 $statistik = [
     'alumni' => 0,
     'responden' => 0,
@@ -12,14 +13,17 @@ $statistik = [
 ];
 
 try {
+    // Menghitung jumlah total alumni terdaftar.
     $statistik['alumni'] = (int) $pdo
         ->query('SELECT COUNT(*) FROM alumni')
         ->fetchColumn();
 
+    // Menghitung jumlah alumni yang sudah mengisi tracer study.
     $statistik['responden'] = (int) $pdo
         ->query('SELECT COUNT(*) FROM tracer_study')
         ->fetchColumn();
 
+    // Mengelompokkan status alumni dari tabel tracer_study untuk statistik pekerjaan, kuliah, dan pengangguran.
     $query = "
         SELECT
         status_alumni,
@@ -50,10 +54,13 @@ try {
     echo '</pre>';
     exit;
 }
+
+// Persentase responden dihitung dari total alumni yang terdaftar.
 $persentaseRespons = $statistik['alumni'] > 0
     ? round(($statistik['responden'] / $statistik['alumni']) * 100)
     : 0;
 
+// Helper untuk membungkus output agar aman dari injeksi HTML / XSS.
 function e($value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');

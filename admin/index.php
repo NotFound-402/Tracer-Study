@@ -1,9 +1,10 @@
 <?php
 session_start();
 
+// Mengaktifkan session dan memuat konfigurasi keamanan serta database.
+// Halaman ini hanya boleh diakses oleh pengguna dengan role admin.
 require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/database.php';
-
 
 requireRole('admin'); 
 
@@ -15,12 +16,12 @@ if (isset($_GET['logout'])) {
     exit;
 }
 
-// Data admin yang sedang login
+// Data admin yang sedang login agar sidebar dan header menampilkan identitas pengguna.
 $admin = $_SESSION['user'];
 
 require_once __DIR__ . '/../config/database.php';
 
-// Statistik utama
+// Mengambil ringkasan data utama dari database agar dashboard admin dapat menampilkan angka real-time.
 $totalAlumni = (int) $pdo
     ->query("SELECT COUNT(*) FROM alumni")
     ->fetchColumn();

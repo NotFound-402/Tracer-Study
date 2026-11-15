@@ -1,4 +1,6 @@
 <?php
+// Halaman dashboard guru dibuka setelah autentikasi berhasil.
+// Fungsinya untuk menampilkan ringkasan data alumni dan tracer study kepada guru.
 require_once __DIR__ . '/../config/session.php';
 require_once __DIR__ . '/../config/database.php';
 
@@ -6,7 +8,7 @@ requireRole('guru');
 
 $guru = $_SESSION['user'];
 
-// Statistik utama
+// Statistik utama yang ditampilkan di dashboard guru.
 $totalAlumni = (int) $pdo
     ->query("SELECT COUNT(*) FROM alumni")
     ->fetchColumn();
